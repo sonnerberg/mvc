@@ -2,13 +2,13 @@
 
 {% extends "base.html.twig" %}
 
-{% block title %}this is about{% endblock title %}
+{% block title %}About | {{ parent() }}{% endblock title %}
 
 {% block body %}
     {% apply markdown_to_html %}
         This website is created as a part of the course [mvc](https://github.com/dbwebb-se/mvc).
 
-        The goal of mvc is to learn object oriented programming in [php](https://www.php.net/).
+        The goal of mvc is to learn object-oriented programming in [php](https://www.php.net/).
 
         In the course the web framework [symfony](https://symfony.com/) both to learn the framework and to practice object-oriented techniques.
 
