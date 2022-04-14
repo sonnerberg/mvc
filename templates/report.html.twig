@@ -6,5 +6,13 @@
 
 
 {% block body %}
-presentation texts
+    {% apply markdown_to_html %}
+        ## Presentation texts
+        {% include 'reports/kmom01.md' %}
+        {% include 'reports/kmom02.md' %}
+        {% include 'reports/kmom03.md' %}
+        {% include 'reports/kmom04.md' %}
+        {% include 'reports/kmom05.md' %}
+        {% include 'reports/kmom06.md' %}
+    {% endapply %}
 {% endblock body %}
