@@ -8,19 +8,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReportController extends AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: 'report_home', methods: ['GET'])]
     public function home(): Response
     {
         return $this->render('home.html.twig');
     }
 
-    #[Route('/about')]
+    #[Route('/about', name: 'report_about', methods: ['GET'])]
     public function about(): Response
     {
         return $this->render('about.html.twig');
     }
 
-    #[Route('/report')]
+    #[Route('/report', name: 'report_report', methods: ['GET'])]
     public function report(): Response
     {
         return $this->render('report.html.twig');
