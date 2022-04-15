@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Controller;
+
+use App\Card\Card;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class CardController extends AbstractController
+{
+    #[Route('/card', name: 'card_home', methods: ['GET'])]
+    public function home(Card $card): Response
+    {
+        $customCard = new Card('2', 'heart');
+        $data = [
+            "card" => $card->getAsString(),
+            "customCard" => $customCard->getAsString()
+        ];
+
+        return $this->render('card.html.twig', $data);
+    }
+
+    #[Route('/card/deck', name: 'card_deck', methods: ['GET'])]
+    public function deck(Card $card): Response
+    {
+        $customCard = new Card('2', 'heart');
+        $data = [
+            "card" => $card->getAsString(),
+            "customCard" => $customCard->getAsString()
+        ];
+
+        return $this->render('card.html.twig', $data);
+    }
+}

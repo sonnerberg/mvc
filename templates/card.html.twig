@@ -1,0 +1,11 @@
+{# templates/home #}
+
+{% extends "base.html.twig" %}
+
+{% block title %}Card | {{ parent() }}{% endblock title %}
+
+{% block body %}
+    This is where we play cards.
+    {{ card }}
+    {{ customCard }}
+{% endblock body %}
