@@ -1,0 +1,8 @@
+{% extends "card/home.html.twig" %}
+{% block body %}
+	{{ parent() }}
+	<pre>
+		{{ dump() }}
+	</pre>
+	{{ deck }}
+{% endblock %}

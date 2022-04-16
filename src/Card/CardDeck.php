@@ -6,31 +6,48 @@ use App\Card\Card;
 
 class CardDeck
 {
-    private $hand = [];
+    private $deck = [];
+    private $available_suits_names = ["heart", "spade", "diamond", "club",];
+    private $available_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
-    public function add(Card $die): void
+    public function add(Card $card): void
     {
-        $this->hand[] = $die;
+        $this->deck[] = $card;
+    }
+
+    public function populateDeck(): void
+    {
+        foreach ($this->available_suits_names as $available_suits_name) {
+            foreach ($this->available_values as $value) {
+                $this->add(new \App\Card\Card($value, $available_suits_name));
+            }
+        }
     }
 
     public function roll(): void
     {
-        foreach ($this->hand as $die) {
-            $die->roll();
+        foreach ($this->deck as $card) {
+            $card->roll();
         }
     }
 
     public function getNumberDices(): int
     {
-        return count($this->hand);
+        return count($this->deck);
     }
 
     public function getAsString(): string
     {
         $str = "";
-        foreach ($this->hand as $die) {
-            $str .= $die->getAsString();
+        foreach ($this->deck as $card) {
+            $str .= $card->getAsString();
         }
         return $str;
+    }
+
+    public function shuffleDeck(): void
+    {
+        shuffle($this->deck);
+        // echo implode(', ', $this->deck);
     }
 }
