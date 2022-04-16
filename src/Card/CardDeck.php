@@ -27,15 +27,20 @@ class CardDeck
 
     public function drawACardAndAddItToHand(int $cardsToDraw = 1): void
     {
-        $randomKeys = array_rand($this->deck, $cardsToDraw);
-        if (is_array($randomKeys)) {
-            foreach ($randomKeys as $randomKey) {
-                $this->hand[] = $this->deck[$randomKey];
-                unset($this->deck[$randomKey]);
+        if ($cardsToDraw > count($this->deck)) {
+            $cardsToDraw = count($this->deck);
+        }
+        if (count($this->deck) > 0) {
+            $randomKeys = array_rand($this->deck, $cardsToDraw);
+            if (is_array($randomKeys)) {
+                foreach ($randomKeys as $randomKey) {
+                    $this->hand[] = $this->deck[$randomKey];
+                    unset($this->deck[$randomKey]);
+                }
+            } else {
+                $this->hand[] = $this->deck[$randomKeys];
+                unset($this->deck[$randomKeys]);
             }
-        } else {
-            $this->hand[] = $this->deck[$randomKeys];
-            unset($this->deck[$randomKeys]);
         }
     }
 

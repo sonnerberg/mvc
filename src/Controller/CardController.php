@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -58,12 +60,16 @@ class CardController extends AbstractController
         return $this->render('card/deck.html.twig', $data);
     }
 
-    #[Route("/card/shuffle", name: "card_deck_shuffle")]
-    public function shuffle(): Response
-    {
+    #[Route("/card/deck/shuffle", name: "card_deck_shuffle")]
+    public function shuffle(
+        SessionInterface $session,
+
+    ): Response {
         $deck = new \App\Card\CardDeck();
         $deck->populateDeck();
         $deck->shuffleDeck();
+
+        $session->set("card-hand", $deck);
 
         $data = [
             'title' => 'Card',
@@ -74,13 +80,19 @@ class CardController extends AbstractController
         return $this->render('card/deck.html.twig', $data);
     }
 
-    #[Route("/card/draw/{number}", name: "card_deck_draw_one")]
-    public function drawACard(int $number = 1): Response
-    {
-        $deck = new \App\Card\CardDeck();
-        $deck->populateDeck();
-        $deck->shuffleDeck();
+    #[Route("/card/deck/draw/{number}", name: "card_deck_draw_one")]
+    public function drawACard(
+        Request $request,
+        SessionInterface $session,
+        int $number = 1
+    ): Response {
+        $deck = $session->get("card-hand") ?? new \App\Card\CardDeck();
+        if (!$session->get("card-hand")) {
+            $deck->populateDeck();
+        }
         $deck->drawACardAndAddItToHand($number);
+
+        $session->set("card-hand", $deck);
 
         $data = [
             'title' => 'Card',

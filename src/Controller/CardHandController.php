@@ -23,13 +23,7 @@ class CardHandController extends AbstractController
         return $this->render('card/hand.html.twig');
     }
 
-    /**
-     * @Route(
-     *      "/card/hand",
-     *      name="card-hand-process",
-     *      methods={"POST"}
-     * )
-     */
+    #[Route("/card/hand", name: "card-hand-process", methods: ["POST"])]
     public function process(
         Request $request,
         SessionInterface $session
@@ -44,7 +38,7 @@ class CardHandController extends AbstractController
             $hand->roll();
         } elseif ($add) {
             $hand->add(new \App\Card\Card());
-//            $hand->add(new \App\Card\CardGraphic());
+            //            $hand->add(new \App\Card\CardGraphic());
         } elseif ($clear) {
             $hand = new \App\Card\CardDeck();
         }
