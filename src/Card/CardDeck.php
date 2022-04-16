@@ -24,6 +24,11 @@ class CardDeck
         }
     }
 
+    public function getAmountOfCardsInDeck(): int
+    {
+        return count($this->deck);
+    }
+
     public function roll(): void
     {
         foreach ($this->deck as $card) {

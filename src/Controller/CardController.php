@@ -55,6 +55,7 @@ class CardController extends AbstractController
         $data = [
             'title' => 'Card',
             'deck' => $deck->getAsString(),
+            'amount_cards' => $deck->getAmountOfCardsInDeck(),
         ];
         return $this->render('card/deck.html.twig', $data);
     }
@@ -72,6 +73,7 @@ class CardController extends AbstractController
         $data = [
             'title' => 'Card',
             'deck' => $deck->getAsString(),
+            'amount_cards' => $deck->getAmountOfCardsInDeck(),
         ];
         return $this->render('card/deck.html.twig', $data);
     }
