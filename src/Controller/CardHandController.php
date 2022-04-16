@@ -20,7 +20,7 @@ class CardHandController extends AbstractController
      */
     public function home(): Response
     {
-        return $this->render('dice/hand.html.twig');
+        return $this->render('card/hand.html.twig');
     }
 
     /**
@@ -34,7 +34,7 @@ class CardHandController extends AbstractController
         Request $request,
         SessionInterface $session
     ): Response {
-        $hand = $session->get("dicehand") ?? new \App\Card\CardHand();
+        $hand = $session->get("card-hand") ?? new \App\Card\CardDeck();
 
         $roll  = $request->request->get('roll');
         $add  = $request->request->get('add');
@@ -44,12 +44,12 @@ class CardHandController extends AbstractController
             $hand->roll();
         } elseif ($add) {
             $hand->add(new \App\Card\Card());
-            //$hand->add(new \App\Card\CardGraphic());
+//            $hand->add(new \App\Card\CardGraphic());
         } elseif ($clear) {
-            $hand = new \App\Card\CardHand();
+            $hand = new \App\Card\CardDeck();
         }
 
-        $session->set("dicehand", $hand);
+        $session->set("card-hand", $hand);
 
         $this->addFlash("info", "Your dice hand holds " . $hand->getNumberDices() . " dices.");
         $this->addFlash("info", "Current values: " . $hand->getAsString());

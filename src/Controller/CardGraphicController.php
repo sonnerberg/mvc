@@ -21,7 +21,7 @@ class CardGraphicController extends AbstractController
             'die_as_string' => $die->getAsString(),
             'link_to_roll' => $this->generateUrl('card-graphic-roll', ['numRolls' => 5,]),
         ];
-        return $this->render('dice/home.html.twig', $data);
+        return $this->render('card/home.html.twig', $data);
     }
 
     /**
@@ -42,6 +42,6 @@ class CardGraphicController extends AbstractController
             'numRolls' => $numRolls,
             'rolls' => $rolls,
         ];
-        return $this->render('dice/roll.html.twig', $data);
+        return $this->render('card/roll.html.twig', $data);
     }
 }

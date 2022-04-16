@@ -40,9 +40,9 @@ class Card
         }
     }
 
-    public function roll(): int
+    public function roll(): string
     {
-        $this->value = random_int(1, 6);
+        $this->value = $this->available_values[random_int(0, count($this->available_values) - 1)];
         return $this->value;
     }
 

@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Dice{% endblock %}
+
+
+{% block body %}
+    {% include('card_navbar.html.twig') %}
+<h1>{{ title }}</h1>
+
+        {{ deck }}
+
+
+{% endblock %}
