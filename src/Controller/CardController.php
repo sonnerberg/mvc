@@ -45,9 +45,6 @@ class CardController extends AbstractController
     #[Route("/card/deck", name: "card_deck")]
     public function deck(): Response
     {
-        $available_suits_names = ["heart", "spade", "diamond", "club",];
-        $available_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-
         $deck = new \App\Card\CardDeck();
         $deck->populateDeck();
 
@@ -56,6 +53,7 @@ class CardController extends AbstractController
             'title' => 'Card',
             'deck' => $deck->getAsString(),
             'amount_cards' => $deck->getAmountOfCardsInDeck(),
+            'cardsDrawn' => $deck->getDrawnCardsAsString(),
         ];
         return $this->render('card/deck.html.twig', $data);
     }
@@ -63,9 +61,6 @@ class CardController extends AbstractController
     #[Route("/card/shuffle", name: "card_deck_shuffle")]
     public function shuffle(): Response
     {
-        $available_suits_names = ["heart", "spade", "diamond", "club",];
-        $available_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-
         $deck = new \App\Card\CardDeck();
         $deck->populateDeck();
         $deck->shuffleDeck();
@@ -74,6 +69,24 @@ class CardController extends AbstractController
             'title' => 'Card',
             'deck' => $deck->getAsString(),
             'amount_cards' => $deck->getAmountOfCardsInDeck(),
+            'cardsDrawn' => $deck->getDrawnCardsAsString(),
+        ];
+        return $this->render('card/deck.html.twig', $data);
+    }
+
+    #[Route("/card/draw/{number}", name: "card_deck_draw_one")]
+    public function drawACard(int $number = 1): Response
+    {
+        $deck = new \App\Card\CardDeck();
+        $deck->populateDeck();
+        $deck->shuffleDeck();
+        $deck->drawACardAndAddItToHand($number);
+
+        $data = [
+            'title' => 'Card',
+            'deck' => $deck->getAsString(),
+            'amount_cards' => $deck->getAmountOfCardsInDeck(),
+            'cardsDrawn' => $deck->getDrawnCardsAsString(),
         ];
         return $this->render('card/deck.html.twig', $data);
     }

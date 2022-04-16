@@ -7,6 +7,7 @@ use App\Card\Card;
 class CardDeck
 {
     private $deck = [];
+    private $hand = [];
     private $available_suits_names = ["heart", "spade", "diamond", "club",];
     private $available_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
@@ -22,6 +23,29 @@ class CardDeck
                 $this->add(new \App\Card\Card($value, $available_suits_name));
             }
         }
+    }
+
+    public function drawACardAndAddItToHand(int $cardsToDraw = 1): void
+    {
+        $randomKeys = array_rand($this->deck, $cardsToDraw);
+        if (is_array($randomKeys)) {
+            foreach ($randomKeys as $randomKey) {
+                $this->hand[] = $this->deck[$randomKey];
+                unset($this->deck[$randomKey]);
+            }
+        } else {
+            $this->hand[] = $this->deck[$randomKeys];
+            unset($this->deck[$randomKeys]);
+        }
+    }
+
+    public function getDrawnCardsAsString(): string
+    {
+        $str = "";
+        foreach ($this->hand as $card) {
+            $str .= $card->getAsString();
+        }
+        return $str;
     }
 
     public function getAmountOfCardsInDeck(): int
