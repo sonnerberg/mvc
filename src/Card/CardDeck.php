@@ -25,6 +25,16 @@ class CardDeck
         }
     }
 
+    public function drawACard(): ?Card
+    {
+        if (count($this->deck)) {
+            $randomKey = array_rand($this->deck, 1);
+            $cardToReturn = $this->deck[$randomKey];
+            unset($this->deck[$randomKey]);
+            return $cardToReturn;
+        }
+    }
+
     public function drawACardAndAddItToHand(int $cardsToDraw = 1): void
     {
         if ($cardsToDraw > count($this->deck)) {
