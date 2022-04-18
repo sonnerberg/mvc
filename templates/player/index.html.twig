@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PlayerController!
+{% endblock %}
+
+{% block body %}
+	{% include('card_navbar.html.twig') %}
+
+	{% for player in players %}
+		<p>
+			Player
+			{{ loop.index }}
+			-
+			{{ player }}
+		</p>
+	{% endfor %}
+
+</div>
+<p>Amount of cards left:
+	{{ amount_cards }}</p>{% endblock %}

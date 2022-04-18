@@ -13,13 +13,14 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class CardController extends AbstractController
 {
     #[Route("/card", name: "card_home")]
-    public function home(): Response
-    {
-        $die = new \App\Card\Card();
+    public function home(
+        SessionInterface $session,
+    ): Response {
+        $deck = $session->get("card-hand") ?? new \App\Card\CardDeck();
         $data = [
             'title' => 'Card',
-            'die_value' => $die->roll(),
-            'die_as_string' => $die->getAsString(),
+            'die_value' => $deck->roll(),
+            'die_as_string' => $deck->getAsString(),
             'link_to_roll' => $this->generateUrl('card-roll', ['numRolls' => 5,]),
         ];
         return $this->render('card/home.html.twig', $data);
@@ -63,7 +64,6 @@ class CardController extends AbstractController
     #[Route("/card/deck/shuffle", name: "card_deck_shuffle")]
     public function shuffle(
         SessionInterface $session,
-
     ): Response {
         $deck = new \App\Card\CardDeck();
         $deck->populateDeck();
@@ -93,6 +93,21 @@ class CardController extends AbstractController
         $deck->drawACardAndAddItToHand($number);
 
         $session->set("card-hand", $deck);
+
+        $data = [
+            'title' => 'Card',
+            'deck' => $deck->getAsString(),
+            'amount_cards' => $deck->getAmountOfCardsInDeck(),
+            'cardsDrawn' => $deck->getDrawnCardsAsString(),
+        ];
+        return $this->render('card/deck.html.twig', $data);
+    }
+
+    #[Route("/card/deck2", name: "card_deck2")]
+    public function deckWith2Jokers(): Response
+    {
+        $deck = new \App\Card\DeckWith2Jokers();
+        $deck->populateDeck();
 
         $data = [
             'title' => 'Card',

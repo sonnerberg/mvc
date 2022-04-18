@@ -6,10 +6,10 @@ use App\Card\Card;
 
 class CardDeck
 {
-    private $deck = [];
-    private $hand = [];
-    private $available_suits_names = ["heart", "spade", "diamond", "club",];
-    private $available_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+    protected $deck = [];
+    protected $hand = [];
+    protected $available_suits_names = ["heart", "spade", "diamond", "club",];
+    protected $available_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
     public function add(Card $card): void
     {
