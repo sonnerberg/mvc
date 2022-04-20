@@ -10,6 +10,20 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
 {
+    #[Route('/card/api/deck', name: 'api_deck', methods: ['GET'])]
+    public function deck(
+        SessionInterface $session,
+
+    ): JsonResponse {
+        $deck = new \App\Card\CardDeck();
+        $deck->populateDeck();
+
+        $data = [
+            'data' => ['deck' => $deck->getAsString()],
+        ];
+
+        return $this->json($data);
+    }
     #[Route('/card/api/deck/shuffle', name: 'api_shuffle', methods: ['POST'])]
     public function index(
         SessionInterface $session,
