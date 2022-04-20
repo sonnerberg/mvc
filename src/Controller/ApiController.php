@@ -48,4 +48,35 @@ class ApiController extends AbstractController
 
         return $this->json($data);
     }
+
+    #[Route('/card/api/deck/deal/{players}/{cards}', name: 'api_player', methods: ["GET"])]
+    public function players(
+        SessionInterface $session,
+        int $players = 1,
+        int $cards = 1
+    ): Response {
+        $deck = $session->get("card-hand") ?? new \App\Card\CardDeck();
+        $thePlayers = [];
+        $stringRepPlayers = [];
+
+        for ($i = 0; $i < $players; $i++) {
+            $thePlayers[] = new \App\Card\CardPlayer();
+        }
+        for ($i = 0; $i < $cards; $i++) {
+            foreach ($thePlayers as $player) {
+                $player->add($deck->drawACard());
+            }
+        }
+        foreach ($thePlayers as $player) {
+            $stringRepPlayers[] = $player->getAsString();
+        }
+
+        $data = [
+            'controller_name' => 'PlayerController',
+            'amount_players' => count($thePlayers),
+            'players' => $stringRepPlayers,
+            'amount_cards' => $deck->getAmountOfCardsInDeck(),
+        ];
+        return $this->json($data);
+    }
 }

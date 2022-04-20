@@ -21,12 +21,9 @@ class PlayerController extends AbstractController
         $stringRepPlayers = [];
 
         for ($i = 0; $i < $players; $i++) {
-            // TODO: create players for each $player
-            // $players[] = new \App\Card\CardPlayer();
             $thePlayers[] = new \App\Card\CardPlayer();
         }
         for ($i = 0; $i < $cards; $i++) {
-            // TODO: Add $cards to each player
             foreach ($thePlayers as $player) {
                 $player->add($deck->drawACard());
             }
