@@ -14,9 +14,9 @@ class Card
         "diamond" => "♦",
         "club" => "♣",
         ];
-    protected array $available_suits =[ "♥", "♠", "♦", "♣", ];
-    protected array $available_suits_names =[ "heart", "spade", "diamond", "club", ];
-    protected array $available_values =["2","3","4","5","6","7","8","9","10","J","Q","K","A"];
+    protected array $available_suits = [ "♥", "♠", "♦", "♣", ];
+    protected array $available_suits_names = [ "heart", "spade", "diamond", "club", ];
+    protected array $available_values = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"];
 
     /**
      * @throws Exception
@@ -27,7 +27,7 @@ class Card
             if (!in_array($suit, $this->available_suits_names)) {
                 throw new Exception(
                     'Cannot create new Card: You can only choose suit from '
-                    .implode(', ', $this->available_suits_names).'.'
+                    . implode(', ', $this->available_suits_names) . '.'
                 );
             }
             $this->value = $value;

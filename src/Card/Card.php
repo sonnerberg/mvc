@@ -28,7 +28,6 @@ class Card
             $this->value = 'joker';
             $this->suit = '';
         } else {
-
             if ($value && $suit) {
                 if (!in_array($suit, $this->available_suits_names)) {
                     throw new Exception(

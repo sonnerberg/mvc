@@ -38,7 +38,7 @@ class CardHandController extends AbstractController
             $hand->roll();
         } elseif ($add) {
             $hand->add(new \App\Card\Card());
-            //            $hand->add(new \App\Card\CardGraphic());
+        //            $hand->add(new \App\Card\CardGraphic());
         } elseif ($clear) {
             $hand = new \App\Card\CardDeck();
         }
